@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+    <groupId>com.zzvc.mmps</groupId>
+    <artifactId>mmps-parent</artifactId>
+    <version>6-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>mmps-alert</artifactId>
+  <packaging>pom</packaging>
+  <name>mmps-alert</name>
+  <version>1.2.0-SNAPSHOT</version>
+
+  <properties>
+    <mmps-core.version>1.2.0-SNAPSHOT</mmps-core.version>
+    <mmps-daemon.version>1.2.0-SNAPSHOT</mmps-daemon.version>
+    <mmps-db.version>1.2.0-SNAPSHOT</mmps-db.version>
+    <mmps-player.version>1.2.0-SNAPSHOT</mmps-player.version>
+    <mmps-utils.version>1.2.0-SNAPSHOT</mmps-utils.version>
+  </properties>
+
+  <scm>
+    <connection>scm:svn:svn://localhost/com.zzvc.mmps/mmps-alert/trunk</connection>
+    <developerConnection>scm:svn:svn://localhost/com.zzvc.mmps/mmps-alert/trunk</developerConnection>
+    <url></url>
+  </scm>
+
+  <modules>
+    <module>mmps-alert-app</module>
+    <module>mmps-alert-data</module>
+    <module>mmps-alert-mailer-app</module>
+  </modules>
+
+</project>

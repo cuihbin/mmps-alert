@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- DAOs here -->
+    <bean id="alertConfigDao" class="com.zzvc.mmps.alert.dao.hibernate.AlertConfigDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="playerAlertDao" class="com.zzvc.mmps.alert.dao.hibernate.PlayerAlertDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="playerLastingFaultAlertDao" class="com.zzvc.mmps.alert.dao.hibernate.PlayerLastingFaultAlertDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="playerMassiveFaultAlertDao" class="com.zzvc.mmps.alert.dao.hibernate.PlayerMassiveFaultAlertDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="serverAlertDao" class="com.zzvc.mmps.alert.dao.hibernate.ServerAlertDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+</beans>

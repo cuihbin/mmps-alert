@@ -1,0 +1,12 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <mapping class="com.zzvc.mmps.alert.model.AlertConfig" />
+        <mapping class="com.zzvc.mmps.alert.model.PlayerAlert" />
+        <mapping class="com.zzvc.mmps.alert.model.PlayerLastingFaultAlert" />
+        <mapping class="com.zzvc.mmps.alert.model.PlayerMassiveFaultAlert" />
+        <mapping class="com.zzvc.mmps.alert.model.ServerAlert" />
+    </session-factory>
+</hibernate-configuration>
