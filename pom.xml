@@ -19,13 +19,12 @@
     <mmps-daemon.version>1.2.0-SNAPSHOT</mmps-daemon.version>
     <mmps-db.version>1.2.0-SNAPSHOT</mmps-db.version>
     <mmps-player.version>1.2.0-SNAPSHOT</mmps-player.version>
-    <mmps-utils.version>1.2.0-SNAPSHOT</mmps-utils.version>
   </properties>
 
   <scm>
-    <connection>scm:svn:svn://localhost/com.zzvc.mmps/mmps-alert/trunk</connection>
-    <developerConnection>scm:svn:svn://localhost/com.zzvc.mmps/mmps-alert/trunk</developerConnection>
-    <url></url>
+    <connection>scm:git:git@github.com:cuihbin/mmps-alert.git</connection>
+    <developerConnection>scm:git:git@github.com:cuihbin/mmps-alert.git</developerConnection>
+    <url>https://github.com/cuihbin</url>
   </scm>
 
   <modules>
