@@ -1,0 +1,1 @@
+Monitor player heart beat and send notify mail when player failure detected.
