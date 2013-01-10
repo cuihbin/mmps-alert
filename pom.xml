@@ -16,9 +16,9 @@
 
   <properties>
     <mmps-core.version>1.2.0-SNAPSHOT</mmps-core.version>
-    <mmps-daemon.version>1.2.0-SNAPSHOT</mmps-daemon.version>
     <mmps-db.version>1.2.0-SNAPSHOT</mmps-db.version>
-    <mmps-player.version>1.2.0-SNAPSHOT</mmps-player.version>
+    <mmps-player-data.version>1.2.0-SNAPSHOT</mmps-player-data.version>
+    <mmps-remoting.version>1.2.0-SNAPSHOT</mmps-remoting.version>
   </properties>
 
   <scm>

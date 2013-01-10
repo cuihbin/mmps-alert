@@ -37,8 +37,8 @@
 
     <dependency>
       <groupId>com.zzvc.mmps</groupId>
-      <artifactId>mmps-server-reporter</artifactId>
-      <version>${mmps-player.version}</version>
+      <artifactId>mmps-remoting-server-client</artifactId>
+      <version>${mmps-remoting.version}</version>
     </dependency>
   </dependencies>
 </project>
