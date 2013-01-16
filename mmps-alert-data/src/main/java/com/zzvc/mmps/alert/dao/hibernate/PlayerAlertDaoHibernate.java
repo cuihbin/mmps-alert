@@ -5,10 +5,12 @@ import java.util.List;
 import org.appfuse.dao.hibernate.GenericDaoHibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.zzvc.mmps.alert.dao.PlayerAlertDao;
 import com.zzvc.mmps.alert.model.PlayerAlert;
 
+@Repository("playerAlertDao")
 public class PlayerAlertDaoHibernate extends GenericDaoHibernate<PlayerAlert, Long> implements PlayerAlertDao {
 	
 	public PlayerAlertDaoHibernate() {

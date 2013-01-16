@@ -5,10 +5,12 @@ import java.util.List;
 import org.appfuse.dao.hibernate.GenericDaoHibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.zzvc.mmps.alert.dao.PlayerMassiveFaultAlertDao;
 import com.zzvc.mmps.alert.model.PlayerMassiveFaultAlert;
 
+@Repository("playerMassiveFaultAlertDao")
 public class PlayerMassiveFaultAlertDaoHibernate extends GenericDaoHibernate<PlayerMassiveFaultAlert, Long>
 		implements PlayerMassiveFaultAlertDao {
 

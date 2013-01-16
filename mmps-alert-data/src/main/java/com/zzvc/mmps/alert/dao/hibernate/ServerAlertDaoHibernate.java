@@ -5,10 +5,12 @@ import java.util.List;
 import org.appfuse.dao.hibernate.GenericDaoHibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.zzvc.mmps.alert.dao.ServerAlertDao;
 import com.zzvc.mmps.alert.model.ServerAlert;
 
+@Repository("serverAlertDao")
 public class ServerAlertDaoHibernate extends GenericDaoHibernate<ServerAlert, Long> implements ServerAlertDao {
 
 	public ServerAlertDaoHibernate() {
