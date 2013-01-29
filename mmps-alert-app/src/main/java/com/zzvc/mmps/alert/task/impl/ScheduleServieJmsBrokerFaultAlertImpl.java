@@ -79,7 +79,7 @@ public class ScheduleServieJmsBrokerFaultAlertImpl extends ScheduleServiceAlertS
 		activeAlert(activeJmsBrokerFaultAlert);
 		serverAlertManager.save(activeJmsBrokerFaultAlert);
 		
-		warn(findTextFilterNullArgs("alert.fault.arising.server", JMS_BROKER_SERVER_NAME, lastFailTime));
+		warn(findTextFilterNullArgs("alert.arising.server.fault", JMS_BROKER_SERVER_NAME, lastFailTime));
 	}
 	
 	@Override
