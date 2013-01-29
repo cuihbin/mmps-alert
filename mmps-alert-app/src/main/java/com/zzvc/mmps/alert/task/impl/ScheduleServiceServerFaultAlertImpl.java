@@ -19,7 +19,7 @@ public class ScheduleServiceServerFaultAlertImpl extends ScheduleServiceMultiIte
 	private AlertConfigManager alertConfigManager;
 	
 	@Resource
-	private ServerManager serverDao;
+	private ServerManager serverManager;
 	
 	@Resource
 	private ServerAlertManager serverAlertManager;
@@ -49,7 +49,7 @@ public class ScheduleServiceServerFaultAlertImpl extends ScheduleServiceMultiIte
 	}
 
 	protected List getEfectiveLiveFaultEntities() {
-		return serverDao.findByFaultLasting(minutesBeforeServerFault);
+		return serverManager.findByFaultLasting(minutesBeforeServerFault);
 	}
 	
 	protected String getFaultEntityKeyString(Object faultEntity) {
@@ -77,7 +77,7 @@ public class ScheduleServiceServerFaultAlertImpl extends ScheduleServiceMultiIte
 	
 	protected Object getEntityFromAlert(AlertBaseEntity alert) {
 		try {
-			return serverDao.findByCode(((ServerAlert) alert).getCode()).get(0);
+			return serverManager.findByCode(((ServerAlert) alert).getCode()).get(0);
 		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}
