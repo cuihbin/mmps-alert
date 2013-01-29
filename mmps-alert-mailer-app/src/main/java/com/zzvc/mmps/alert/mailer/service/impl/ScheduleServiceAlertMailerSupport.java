@@ -22,12 +22,12 @@ import org.springframework.mail.MailPreparationException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import com.zzvc.mmps.alert.dao.AlertConfigDao;
 import com.zzvc.mmps.alert.model.AlertBaseEntity;
+import com.zzvc.mmps.alert.service.AlertConfigManager;
 import com.zzvc.mmps.alert.util.AlertConstants;
 import com.zzvc.mmps.console.localize.LocalizeUtil;
-import com.zzvc.mmps.dao.UniversalDao;
 import com.zzvc.mmps.scheduler.task.SchedulerTask;
+import com.zzvc.mmps.service.UniversalManager;
 import com.zzvc.mmps.task.TaskException;
 import com.zzvc.mmps.task.TaskSupport;
 
@@ -38,10 +38,10 @@ public abstract class ScheduleServiceAlertMailerSupport extends TaskSupport impl
 	private static Logger logger = Logger.getLogger(ScheduleServiceAlertMailerSupport.class);
 	
 	@Resource
-	private AlertConfigDao alertConfigDao;
+	private AlertConfigManager alertConfigManager;
 	
 	@Resource
-	protected UniversalDao universalDao;
+	protected UniversalManager universalManager;
 	
 	@Resource
 	protected JavaMailSender mailSender;
@@ -73,7 +73,7 @@ public abstract class ScheduleServiceAlertMailerSupport extends TaskSupport impl
 	public void init() {
 		ResourceBundle mailBundle = ResourceBundle.getBundle("mail");
 		
-		systemName = alertConfigDao.getConfig(AlertConstants.CFG_SYSTEM_NAME);
+		systemName = alertConfigManager.getConfig(AlertConstants.CFG_SYSTEM_NAME);
 		appName = findText("app.name");
 		
 		infoMessage("alert.mailer.mail.list.loading");
@@ -95,7 +95,7 @@ public abstract class ScheduleServiceAlertMailerSupport extends TaskSupport impl
 					sendAlertMail(alert);
 
 					alert.setMailSend(true);
-					universalDao.save(alert);
+					universalManager.save(alert);
 					
 					infoMessage("alert.mailer.sendmail." + getId(), getAlertKeyWord(alert));
 				} catch (MailException e) {

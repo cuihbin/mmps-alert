@@ -6,24 +6,24 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.zzvc.mmps.alert.dao.AlertConfigDao;
-import com.zzvc.mmps.alert.dao.PlayerLastingFaultAlertDao;
 import com.zzvc.mmps.alert.model.AlertBaseEntity;
 import com.zzvc.mmps.alert.model.PlayerLastingFaultAlert;
+import com.zzvc.mmps.alert.service.AlertConfigManager;
+import com.zzvc.mmps.alert.service.PlayerLastingFaultAlertManager;
+import com.zzvc.mmps.alert.service.PlayerManager;
 import com.zzvc.mmps.alert.util.AlertConstants;
-import com.zzvc.mmps.dao.PlayerDao;
 import com.zzvc.mmps.model.Player;
 
 public class ScheduleServicePlayerLastingFaultAlertMailerImpl extends ScheduleServiceAlertMailerSupport {
 	
 	@Resource
-	private AlertConfigDao alertConfigDao;
+	private AlertConfigManager alertConfigManager;
 	
 	@Resource
-	private PlayerDao playerDao;
+	private PlayerManager playerManager;
 	
 	@Resource
-	private PlayerLastingFaultAlertDao playerLastingFaultAlertDao;
+	private PlayerLastingFaultAlertManager playerLastingFaultAlertManager;
 	
 	private int minutesBeforeAlert;
 
@@ -32,7 +32,7 @@ public class ScheduleServicePlayerLastingFaultAlertMailerImpl extends ScheduleSe
 		super.init();
 		
 		try {
-			minutesBeforeAlert = Integer.parseInt(alertConfigDao.getConfig(AlertConstants.CFG_MINUTES_BEFORE_PLAYER_LASTING_FAULT));
+			minutesBeforeAlert = Integer.parseInt(alertConfigManager.getConfig(AlertConstants.CFG_MINUTES_BEFORE_PLAYER_LASTING_FAULT));
 		} catch (Exception e) {
 			minutesBeforeAlert = AlertConstants.DEFAULT_MINUTES_BEFORE_PLAYER_LASTING_FAULT;
 		}
@@ -41,12 +41,12 @@ public class ScheduleServicePlayerLastingFaultAlertMailerImpl extends ScheduleSe
 
 	@Override
 	protected Collection findActiveAlert() {
-		return playerLastingFaultAlertDao.findActiveAlert();
+		return playerLastingFaultAlertManager.findActiveAlert();
 	}
 
 	@Override
 	protected Object findRelatedEntity(AlertBaseEntity alert) {
-		return playerDao.findByAddress(((PlayerLastingFaultAlert) alert).getAddress());
+		return playerManager.findByAddress(((PlayerLastingFaultAlert) alert).getAddress());
 	}
 
 	@Override

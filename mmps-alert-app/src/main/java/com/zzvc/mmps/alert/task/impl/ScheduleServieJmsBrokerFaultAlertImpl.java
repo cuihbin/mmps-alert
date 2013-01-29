@@ -10,24 +10,26 @@ import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.apache.activemq.transport.TransportListener;
 import org.apache.log4j.Logger;
 
-import com.zzvc.mmps.alert.dao.AlertConfigDao;
-import com.zzvc.mmps.alert.dao.ServerAlertDao;
 import com.zzvc.mmps.alert.model.ServerAlert;
+import com.zzvc.mmps.alert.service.AlertConfigManager;
+import com.zzvc.mmps.alert.service.ServerAlertManager;
 import com.zzvc.mmps.alert.util.AlertConstants;
 import com.zzvc.mmps.task.TaskException;
 
 public class ScheduleServieJmsBrokerFaultAlertImpl extends ScheduleServiceAlertSupport implements TransportListener {
 	private static Logger logger = Logger.getLogger(ScheduleServieJmsBrokerFaultAlertImpl.class);
 	
+	private static int MILLISECONDS_OF_MINUTE = 60 * 1000;
+	
 	private static final String JMS_BROKER_SERVER_CODE = "AMQ-SERVER";
 	
 	private static final String JMS_BROKER_SERVER_NAME = "JMS Broker";
 	
 	@Resource
-	private AlertConfigDao alertConfigDao;
+	private AlertConfigManager alertConfigManager;
 	
 	@Resource
-	private ServerAlertDao serverAlertDao;
+	private ServerAlertManager serverAlertManager;
 	
 	@Resource
 	private ActiveMQConnectionFactory amqConnectionFactory;
@@ -41,7 +43,7 @@ public class ScheduleServieJmsBrokerFaultAlertImpl extends ScheduleServiceAlertS
 	@Override
 	public void init() {
 		try {
-			minutesBeforeJmsBrokerFault = Integer.parseInt(alertConfigDao.getConfig(AlertConstants.CFG_MINUTES_BEFORE_JMS_BROKER_FAULT));
+			minutesBeforeJmsBrokerFault = Integer.parseInt(alertConfigManager.getConfig(AlertConstants.CFG_MINUTES_BEFORE_JMS_BROKER_FAULT));
 		} catch (Exception e) {
 			minutesBeforeJmsBrokerFault = AlertConstants.DEFAULT_MINUTES_BEFORE_JMS_BROKER_FAULT;
 		}
@@ -75,7 +77,7 @@ public class ScheduleServieJmsBrokerFaultAlertImpl extends ScheduleServiceAlertS
 		
 		activeJmsBrokerFaultAlert = createJmsBrokerAlert();
 		activeAlert(activeJmsBrokerFaultAlert);
-		serverAlertDao.save(activeJmsBrokerFaultAlert);
+		serverAlertManager.save(activeJmsBrokerFaultAlert);
 		
 		warn(findTextFilterNullArgs("alert.fault.arising.server", JMS_BROKER_SERVER_NAME, lastFailTime));
 	}
@@ -107,7 +109,7 @@ public class ScheduleServieJmsBrokerFaultAlertImpl extends ScheduleServiceAlertS
 			info(findText("alert.jms.broker.started"));
 		} else {
 			recoverAlert(activeJmsBrokerFaultAlert);
-			serverAlertDao.save(activeJmsBrokerFaultAlert);
+			serverAlertManager.save(activeJmsBrokerFaultAlert);
 			activeJmsBrokerFaultAlert = null;
 			
 			info(findTextFilterNullArgs("alert.recover.server.fault", JMS_BROKER_SERVER_NAME, lastFailTime));
@@ -116,7 +118,7 @@ public class ScheduleServieJmsBrokerFaultAlertImpl extends ScheduleServiceAlertS
 	}
 	
 	private ServerAlert getActiveJmsBrokerAlert() {
-		for (ServerAlert alert : serverAlertDao.findActiveAlert()) {
+		for (ServerAlert alert : serverAlertManager.findActiveAlert()) {
 			if (JMS_BROKER_SERVER_CODE.equals(alert.getCode())) {
 				return alert;
 			}

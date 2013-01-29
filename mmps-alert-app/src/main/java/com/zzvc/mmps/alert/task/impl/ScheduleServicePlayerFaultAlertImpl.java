@@ -5,31 +5,31 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.zzvc.mmps.alert.dao.AlertConfigDao;
-import com.zzvc.mmps.alert.dao.PlayerAlertDao;
 import com.zzvc.mmps.alert.model.AlertBaseEntity;
 import com.zzvc.mmps.alert.model.PlayerAlert;
+import com.zzvc.mmps.alert.service.AlertConfigManager;
+import com.zzvc.mmps.alert.service.PlayerAlertManager;
+import com.zzvc.mmps.alert.service.PlayerManager;
 import com.zzvc.mmps.alert.util.AlertConstants;
-import com.zzvc.mmps.dao.PlayerDao;
 import com.zzvc.mmps.model.Player;
 
 public class ScheduleServicePlayerFaultAlertImpl extends ScheduleServiceMultiItemsAlertSupport {
 	
 	@Resource
-	private AlertConfigDao alertConfigDao;
+	private AlertConfigManager alertConfigManager;
 	
 	@Resource
-	private PlayerDao playerDao;
+	private PlayerManager playerManager;
 	
 	@Resource
-	private PlayerAlertDao playerAlertDao;
+	private PlayerAlertManager playerAlertManager;
 	
 	private int minutesBeforePlayerFault;
 	
 	@Override
 	public void init() {
 		try {
-			minutesBeforePlayerFault = Integer.parseInt(alertConfigDao.getConfig(AlertConstants.CFG_MINUTES_BEFORE_PLAYER_FAULT));
+			minutesBeforePlayerFault = Integer.parseInt(alertConfigManager.getConfig(AlertConstants.CFG_MINUTES_BEFORE_PLAYER_FAULT));
 		} catch (Exception e) {
 			minutesBeforePlayerFault = AlertConstants.DEFAULT_MINUTES_BEFORE_SERVER_FAULT;
 		}
@@ -38,7 +38,7 @@ public class ScheduleServicePlayerFaultAlertImpl extends ScheduleServiceMultiIte
 	
 	@Override
 	protected List getEfectiveSavedAlerts() {
-		return playerAlertDao.findActiveAlert();
+		return playerAlertManager.findActiveAlert();
 	}
 	
 	@Override
@@ -53,7 +53,7 @@ public class ScheduleServicePlayerFaultAlertImpl extends ScheduleServiceMultiIte
 
 	@Override
 	protected List getEfectiveLiveFaultEntities() {
-		return playerDao.findByHeartbeatBefore(new Date(System.currentTimeMillis() - minutesBeforePlayerFault * MILLISECONDS_OF_MINUTE));
+		return playerManager.findByFaultLasting(minutesBeforePlayerFault);
 	}
 	
 	@Override
@@ -82,6 +82,6 @@ public class ScheduleServicePlayerFaultAlertImpl extends ScheduleServiceMultiIte
 	
 	@Override
 	protected Object getEntityFromAlert(AlertBaseEntity alert) {
-		return playerDao.findByAddress(((PlayerAlert) alert).getAddress());
+		return playerManager.findByAddress(((PlayerAlert) alert).getAddress());
 	}
 }

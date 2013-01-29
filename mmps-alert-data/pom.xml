@@ -18,6 +18,11 @@
       <artifactId>mmps-player-data</artifactId>
       <version>${mmps-player-data.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.zzvc.mmps</groupId>
+      <artifactId>mmps-db-service</artifactId>
+      <version>${mmps-db.version}</version>
+    </dependency>
   </dependencies>
 
   <profiles>

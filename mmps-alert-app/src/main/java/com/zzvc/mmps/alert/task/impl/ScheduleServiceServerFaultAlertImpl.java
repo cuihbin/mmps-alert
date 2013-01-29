@@ -5,31 +5,31 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.zzvc.mmps.alert.dao.AlertConfigDao;
-import com.zzvc.mmps.alert.dao.ServerAlertDao;
 import com.zzvc.mmps.alert.model.AlertBaseEntity;
 import com.zzvc.mmps.alert.model.ServerAlert;
+import com.zzvc.mmps.alert.service.AlertConfigManager;
+import com.zzvc.mmps.alert.service.ServerAlertManager;
+import com.zzvc.mmps.alert.service.ServerManager;
 import com.zzvc.mmps.alert.util.AlertConstants;
-import com.zzvc.mmps.dao.ServerDao;
 import com.zzvc.mmps.model.Server;
 
 public class ScheduleServiceServerFaultAlertImpl extends ScheduleServiceMultiItemsAlertSupport {
 	
 	@Resource
-	private AlertConfigDao alertConfigDao;
+	private AlertConfigManager alertConfigManager;
 	
 	@Resource
-	private ServerDao serverDao;
+	private ServerManager serverDao;
 	
 	@Resource
-	private ServerAlertDao serverAlertDao;
+	private ServerAlertManager serverAlertManager;
 	
 	private int minutesBeforeServerFault;
 	
 	@Override
 	public void init() {
 		try {
-			minutesBeforeServerFault = Integer.parseInt(alertConfigDao.getConfig(AlertConstants.CFG_MINUTES_BEFORE_SERVER_FAULT));
+			minutesBeforeServerFault = Integer.parseInt(alertConfigManager.getConfig(AlertConstants.CFG_MINUTES_BEFORE_SERVER_FAULT));
 		} catch (Exception e) {
 			minutesBeforeServerFault = AlertConstants.DEFAULT_MINUTES_BEFORE_SERVER_FAULT;
 		}
@@ -37,7 +37,7 @@ public class ScheduleServiceServerFaultAlertImpl extends ScheduleServiceMultiIte
 	}
 	
 	protected List getEfectiveSavedAlerts() {
-		return serverAlertDao.findActiveAlert();
+		return serverAlertManager.findActiveAlert();
 	}
 	
 	protected String getAlertKeyString(AlertBaseEntity alert) {
@@ -49,7 +49,7 @@ public class ScheduleServiceServerFaultAlertImpl extends ScheduleServiceMultiIte
 	}
 
 	protected List getEfectiveLiveFaultEntities() {
-		return serverDao.findByHeartbeatBefore(new Date(System.currentTimeMillis() - minutesBeforeServerFault * MILLISECONDS_OF_MINUTE));
+		return serverDao.findByFaultLasting(minutesBeforeServerFault);
 	}
 	
 	protected String getFaultEntityKeyString(Object faultEntity) {

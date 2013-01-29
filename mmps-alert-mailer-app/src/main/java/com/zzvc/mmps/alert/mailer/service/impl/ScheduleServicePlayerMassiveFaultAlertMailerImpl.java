@@ -7,23 +7,23 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.zzvc.mmps.alert.dao.AlertConfigDao;
-import com.zzvc.mmps.alert.dao.PlayerMassiveFaultAlertDao;
 import com.zzvc.mmps.alert.model.AlertBaseEntity;
 import com.zzvc.mmps.alert.model.PlayerMassiveFaultAlert;
+import com.zzvc.mmps.alert.service.AlertConfigManager;
+import com.zzvc.mmps.alert.service.PlayerManager;
+import com.zzvc.mmps.alert.service.PlayerMassiveFaultAlertManager;
 import com.zzvc.mmps.alert.util.AlertConstants;
-import com.zzvc.mmps.dao.PlayerDao;
 
 public class ScheduleServicePlayerMassiveFaultAlertMailerImpl extends ScheduleServiceAlertMailerSupport {
 	
 	@Resource
-	private AlertConfigDao alertConfigDao;
+	private AlertConfigManager alertConfigManager;
 	
 	@Resource
-	private PlayerDao playerDao;
+	private PlayerManager playerManager;
 	
 	@Resource
-	private PlayerMassiveFaultAlertDao playerMassiveFaultAlertDao;
+	private PlayerMassiveFaultAlertManager playerMassiveFaultAlertManager;
 	
 	private int playerMassiveFaultThreshold;
 
@@ -32,7 +32,7 @@ public class ScheduleServicePlayerMassiveFaultAlertMailerImpl extends ScheduleSe
 		super.init();
 		
 		try {
-			playerMassiveFaultThreshold = Integer.parseInt(alertConfigDao.getConfig(AlertConstants.CFG_PLAYER_MASSIVE_FAULT_THRESHOLD));
+			playerMassiveFaultThreshold = Integer.parseInt(alertConfigManager.getConfig(AlertConstants.CFG_PLAYER_MASSIVE_FAULT_THRESHOLD));
 		} catch (Exception e) {
 			playerMassiveFaultThreshold = getDefaultPlayerMassiveFaultThreshold();
 		}
@@ -41,7 +41,7 @@ public class ScheduleServicePlayerMassiveFaultAlertMailerImpl extends ScheduleSe
 
 	@Override
 	protected Collection findActiveAlert() {
-		return Arrays.asList(new Object[] {playerMassiveFaultAlertDao.findActiveAlert()});
+		return Arrays.asList(new Object[] {playerMassiveFaultAlertManager.findActiveAlert()});
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class ScheduleServicePlayerMassiveFaultAlertMailerImpl extends ScheduleSe
 	}
 	
 	private int getDefaultPlayerMassiveFaultThreshold() {
-		int numberOfPlayers = playerDao.findAll().size();
+		int numberOfPlayers = playerManager.getAll().size();
 		return numberOfPlayers / 2 + numberOfPlayers % 2;
 	}
 }

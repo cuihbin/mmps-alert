@@ -10,12 +10,12 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import com.zzvc.mmps.alert.model.AlertBaseEntity;
-import com.zzvc.mmps.dao.UniversalDao;
+import com.zzvc.mmps.service.UniversalManager;
 
 public abstract class ScheduleServiceMultiItemsAlertSupport extends ScheduleServiceAlertSupport {
 	
 	@Resource
-	protected UniversalDao universalDao;
+	protected UniversalManager universalManager;
 	
 	abstract protected List<AlertBaseEntity> getEfectiveSavedAlerts();
 	abstract protected String getAlertKeyString(AlertBaseEntity alert);
@@ -64,7 +64,7 @@ public abstract class ScheduleServiceMultiItemsAlertSupport extends ScheduleServ
 			earlerAlert = oneAlert;
 		}
 		recoverAlert(earlerAlert);
-		universalDao.save(earlerAlert);
+		universalManager.save(earlerAlert);
 		return newerAlert;
 	}
 	
@@ -94,7 +94,7 @@ public abstract class ScheduleServiceMultiItemsAlertSupport extends ScheduleServ
 		for (String keyString : keyStringsForArisedAlerts) {
 			AlertBaseEntity alert = liveAlerts.get(keyString);
 			activeAlert(alert);
-			universalDao.save(alert);
+			universalManager.save(alert);
 			
 			Object faultEntity = getEntityFromAlert(alert);
 			if (faultEntity != null) {
@@ -112,7 +112,7 @@ public abstract class ScheduleServiceMultiItemsAlertSupport extends ScheduleServ
 		for (String keyString : keyStringsForRecoveredAlerts) {
 			AlertBaseEntity alert = savedAlerts.get(keyString);
 			recoverAlert(alert);
-			universalDao.save(alert);
+			universalManager.save(alert);
 			
 			Object recoveredEntity = getEntityFromAlert(alert);
 			if (recoveredEntity != null) {

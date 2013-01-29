@@ -6,24 +6,24 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.zzvc.mmps.alert.dao.AlertConfigDao;
-import com.zzvc.mmps.alert.dao.ServerAlertDao;
 import com.zzvc.mmps.alert.model.AlertBaseEntity;
 import com.zzvc.mmps.alert.model.ServerAlert;
+import com.zzvc.mmps.alert.service.AlertConfigManager;
+import com.zzvc.mmps.alert.service.ServerAlertManager;
+import com.zzvc.mmps.alert.service.ServerManager;
 import com.zzvc.mmps.alert.util.AlertConstants;
-import com.zzvc.mmps.dao.ServerDao;
 import com.zzvc.mmps.model.Server;
 
 public class ScheduleServiceServerAlertMailerImpl extends ScheduleServiceAlertMailerSupport {
 	
 	@Resource
-	private AlertConfigDao alertConfigDao;
+	private AlertConfigManager alertConfigManager;
 	
 	@Resource
-	private ServerDao serverDao;
+	private ServerManager serverManager;
 	
 	@Resource
-	private ServerAlertDao serverAlertDao;
+	private ServerAlertManager serverAlertManager;
 	
 	private int minutesBeforeServerFault;
 
@@ -32,7 +32,7 @@ public class ScheduleServiceServerAlertMailerImpl extends ScheduleServiceAlertMa
 		super.init();
 		
 		try {
-			minutesBeforeServerFault = Integer.parseInt(alertConfigDao.getConfig(AlertConstants.CFG_MINUTES_BEFORE_SERVER_FAULT));
+			minutesBeforeServerFault = Integer.parseInt(alertConfigManager.getConfig(AlertConstants.CFG_MINUTES_BEFORE_SERVER_FAULT));
 		} catch (Exception e) {
 			minutesBeforeServerFault = AlertConstants.DEFAULT_MINUTES_BEFORE_SERVER_FAULT;
 		}
@@ -41,14 +41,14 @@ public class ScheduleServiceServerAlertMailerImpl extends ScheduleServiceAlertMa
 
 	@Override
 	protected Collection findActiveAlert() {
-		return serverAlertDao.findActiveAlert();
+		return serverAlertManager.findActiveAlert();
 	}
 
 	@Override
 	protected Object findRelatedEntity(AlertBaseEntity alert) {
 		Server server = null;
 		try {
-			server = serverDao.findByCode(((ServerAlert) alert).getCode()).get(0);
+			server = serverManager.findByCode(((ServerAlert) alert).getCode()).get(0);
 		} catch (IndexOutOfBoundsException e) {
 		}
 		return server;

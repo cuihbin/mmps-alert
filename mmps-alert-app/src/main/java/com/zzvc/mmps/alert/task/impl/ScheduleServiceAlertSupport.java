@@ -7,8 +7,6 @@ import com.zzvc.mmps.scheduler.task.SchedulerTask;
 import com.zzvc.mmps.task.TaskSupport;
 
 abstract public class ScheduleServiceAlertSupport extends TaskSupport implements SchedulerTask {
-	protected static int MILLISECONDS_OF_MINUTE = 60 * 1000;
-	
 	public ScheduleServiceAlertSupport() {
 		super();
 		pushBundle("AlertResources");
