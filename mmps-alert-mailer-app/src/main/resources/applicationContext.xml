@@ -21,15 +21,15 @@
 
   <!-- Scheduled Tasks -->
   <bean class="com.zzvc.mmps.alert.mailer.service.impl.ScheduleServicePlayerMassiveFaultAlertMailerImpl">
-    <property name="id" value="player.massive.fault" />
+    <property name="id" value="alert.mailer.player.massive.fault" />
   </bean>
 
   <bean class="com.zzvc.mmps.alert.mailer.service.impl.ScheduleServicePlayerLastingFaultAlertMailerImpl">
-    <property name="id" value="player.lasting.fault" />
+    <property name="id" value="alert.mailer.player.lasting.fault" />
   </bean>
 
   <bean class="com.zzvc.mmps.alert.mailer.service.impl.ScheduleServiceServerAlertMailerImpl">
-    <property name="id" value="server.fault" />
+    <property name="id" value="alert.mailer.server.fault" />
   </bean>
 
   <!-- Freemarker configuration -->
@@ -54,5 +54,4 @@
       </props>
     </property>
   </bean>
-
 </beans>
