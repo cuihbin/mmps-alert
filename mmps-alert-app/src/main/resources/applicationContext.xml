@@ -10,19 +10,18 @@
   <bean id="app" class="com.zzvc.mmps.alert.AlertApp" />
 
   <bean class="com.zzvc.mmps.alert.task.impl.ScheduleServicePlayerFaultAlertImpl">
-    <property name="id" value="player.fault" />
+    <property name="id" value="alert.player.fault" />
   </bean>
   <bean class="com.zzvc.mmps.alert.task.impl.ScheduleServicePlayerLastingFaultAlertImpl">
-    <property name="id" value="player.lasting.fault" />
+    <property name="id" value="alert.player.lasting.fault" />
   </bean>
   <bean class="com.zzvc.mmps.alert.task.impl.ScheduleServicePlayerMassiveFaultAlertImpl">
-    <property name="id" value="player.massive.fault" />
+    <property name="id" value="alert.player.massive.fault" />
   </bean>
   <bean class="com.zzvc.mmps.alert.task.impl.ScheduleServiceServerFaultAlertImpl">
-    <property name="id" value="server.fault" />
+    <property name="id" value="alert.server.fault" />
   </bean>
   <bean class="com.zzvc.mmps.alert.task.impl.ScheduleServieJmsBrokerFaultAlertImpl">
-    <property name="id" value="jms.broker.fault" />
+    <property name="id" value="alert.jms.broker.fault" />
   </bean>
-
 </beans>
