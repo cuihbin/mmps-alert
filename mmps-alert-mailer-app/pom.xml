@@ -29,6 +29,11 @@
       <artifactId>mmps-scheduler</artifactId>
       <version>${mmps-core.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.zzvc.mmps</groupId>
+      <artifactId>mmps-gui</artifactId>
+      <version>${mmps-core.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>com.zzvc.mmps</groupId>
