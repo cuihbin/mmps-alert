@@ -36,7 +36,7 @@ public class ScheduleServicePlayerLastingFaultAlertMailerImpl extends ScheduleSe
 		} catch (Exception e) {
 			minutesBeforeAlert = AlertConstants.DEFAULT_MINUTES_BEFORE_PLAYER_LASTING_FAULT;
 		}
-		infoMessage("mailer.config.parameter", "CFG_MINUTES_BEFORE_PLAYER_LASTING_FAULT", minutesBeforeAlert);
+		infoMessage("alert.mailer.config.parameter", "CFG_MINUTES_BEFORE_PLAYER_LASTING_FAULT", minutesBeforeAlert);
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class ScheduleServiceServerAlertMailerImpl extends ScheduleServiceAlertMa
 		} catch (Exception e) {
 			minutesBeforeServerFault = AlertConstants.DEFAULT_MINUTES_BEFORE_SERVER_FAULT;
 		}
-		infoMessage("mailer.config.parameter", "CFG_MINUTES_BEFORE_SERVER_FAULT", minutesBeforeServerFault);
+		infoMessage("alert.mailer.config.parameter", "CFG_MINUTES_BEFORE_SERVER_FAULT", minutesBeforeServerFault);
 	}
 
 	@Override

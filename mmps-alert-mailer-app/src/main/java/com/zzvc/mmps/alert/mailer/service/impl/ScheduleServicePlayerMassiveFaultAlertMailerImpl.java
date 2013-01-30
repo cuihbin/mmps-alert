@@ -36,7 +36,7 @@ public class ScheduleServicePlayerMassiveFaultAlertMailerImpl extends ScheduleSe
 		} catch (Exception e) {
 			playerMassiveFaultThreshold = getDefaultPlayerMassiveFaultThreshold();
 		}
-		infoMessage("mailer.config.parameter", "CFG_PLAYER_MASSIVE_FAULT_THRESHOLD", playerMassiveFaultThreshold);
+		infoMessage("alert.mailer.config.parameter", "CFG_PLAYER_MASSIVE_FAULT_THRESHOLD", playerMassiveFaultThreshold);
 	}
 
 	@Override
