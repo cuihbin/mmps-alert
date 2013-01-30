@@ -17,7 +17,7 @@
   <properties>
     <mmps-core.version>2.1</mmps-core.version>
     <mmps-db.version>2.2</mmps-db.version>
-    <mmps-player-data.version>2.1</mmps-player-data.version>
+    <mmps-player-data.version>2.1.2</mmps-player-data.version>
     <mmps-remoting.version>2.1</mmps-remoting.version>
   </properties>
 
