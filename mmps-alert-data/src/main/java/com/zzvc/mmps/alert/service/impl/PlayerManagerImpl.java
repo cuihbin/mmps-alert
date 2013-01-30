@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.appfuse.service.impl.GenericManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import com.zzvc.mmps.alert.service.PlayerManager;
@@ -25,7 +26,11 @@ public class PlayerManagerImpl extends GenericManagerImpl<Player, Long> implemen
 
 	@Override
 	public Player findByAddress(String address) {
-		return playerDao.findByAddress(address);
+		try {
+			return playerDao.findByAddress(address);
+		} catch (ObjectRetrievalFailureException e) {
+			return null;
+		}
 	}
 
 	@Override

@@ -46,12 +46,12 @@ public class ScheduleServiceServerAlertMailerImpl extends ScheduleServiceAlertMa
 
 	@Override
 	protected Object findRelatedEntity(AlertBaseEntity alert) {
-		Server server = null;
-		try {
-			server = serverManager.findByCode(((ServerAlert) alert).getCode()).get(0);
-		} catch (IndexOutOfBoundsException e) {
+		for (Server server : serverManager.findByCode(((ServerAlert) alert).getCode())) {
+			if (server.getEnabled()) {
+				return server;
+			}
 		}
-		return server;
+		return null;
 	}
 
 	@Override
